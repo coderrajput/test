@@ -5,9 +5,24 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+padding: 0;
+outline: none;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.imgC{
+
+ margin: auto;
+  max-width:60%;
+  max-height: 450px;
+}
+
+.cardImage{
+    max-height: 60%;
 }
