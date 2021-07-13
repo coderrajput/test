@@ -1,20 +1,15 @@
 import React,{useEffect, useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
-import Container from 'react-bootstrap/Container';
+
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     useParams
   } from "react-router-dom";
-  import Image from 'react-bootstrap/Image'
+  //import  from 'react-bootstrap/Image'
   import Card from 'react-bootstrap/Card'
-
+  const Image = React.lazy(() => import('react-bootstrap/Image'));
 export default function GameDetails() {
     let { id } = useParams();
     let [game,setGame]=useState(null)
-    let [cssClass,setClass]=useState(null)
-    let classes=null;
     useEffect(()=>{
         const lists=  JSON.parse(localStorage.getItem('values'))
        let obj=lists[parseInt(id)];
@@ -22,6 +17,7 @@ export default function GameDetails() {
         
     },[])
     return (
+        <React.Suspense fallback={<div>Loading...</div>}>
         <div>
            { game ? 
             <Card style={{ width: '80%', margin: 'auto' }}>
@@ -39,5 +35,6 @@ export default function GameDetails() {
 
     </Card>    : null}
         </div>
+        </React.Suspense>
     )
 }

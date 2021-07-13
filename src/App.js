@@ -1,18 +1,20 @@
-import logo from './logo.svg';
+import React, { Suspense, lazy } from 'react'
 import './App.css';
-import Home from './component/Home'
-import Game from './component/GameDetails'
+
+//const Game= React.lazy(() => import('./component/GameDetails'));
 import Container from 'react-bootstrap/Container';
 import {
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 import Navbar from './component/Navbar'
+const Home = lazy(() => import('./component/Home'));
+const Game= lazy(() => import('./component/GameDetails'));
 
 function App() {
   return (
+    <Suspense fallback={<div>loading...</div>}>
     <Container  fluid className="App ">
       <Navbar />
       <Switch>
@@ -20,14 +22,15 @@ function App() {
          <Route  exact path="/">
             <Home />
          </Route>
-         <Route path="/game/:id">
-             <Game />
+         
+         <Route  exact path="/game/:id">
+            <Game />
          </Route>
-
          
        </Switch>
       
     </Container>
+    </Suspense>
   );
 }
 

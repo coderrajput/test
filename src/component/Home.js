@@ -2,29 +2,34 @@ import React,{useEffect,useState} from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css';
-import Container from 'react-bootstrap/Container';
+
 import { useHistory } from "react-router-dom";
-import Media from 'react-bootstrap/Media'
-import Image from 'react-bootstrap/Image'
+const Image = React.lazy(() => import('react-bootstrap/Image'));
 
 export default function Home() {
     let history = useHistory();
     const [lists, setList]= useState([]);
 
     useEffect(()=>{
+      if(localStorage.getItem('values')==null){
+        console.log('prat')
         axios.get('https://api.npoint.io/3d06d2ffe703b6c20a3a').then((res)=>{
             let data= [];
             data=res.data;
             setList(data);  
             localStorage.setItem('values',JSON.stringify(data));             
         })
+      }else{
+        const lists=  JSON.parse(localStorage.getItem('values'))
+        setList(lists)
+      }
     },[])
 
 
    
     return (
       
-       
+      <React.Suspense fallback={<div>loading...</div>}  >
        
        <Carousel fade  className="home bg-info" >
            {
@@ -48,6 +53,7 @@ export default function Home() {
            }
        
         </Carousel>
+        </React.Suspense>
      
     )
 }

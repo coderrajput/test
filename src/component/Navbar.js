@@ -1,6 +1,5 @@
 import React from 'react'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
 
 
 export default function NavDropdownExample() {
